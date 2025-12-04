@@ -1,0 +1,21 @@
+<h2>Completed Orders</h2>
+
+<table border="1">
+<tr>
+    <th>User</th>
+    <th>Item</th>
+    <th>Qty</th>
+    <th>Completed</th>
+</tr>
+
+{% for r in summary %}
+<tr>
+    <td>{{ r.user }}</td>
+    <td>{{ r.item }}</td>
+    <td>{{ r.quantity }}</td>
+    <td>{{ r.completed_at }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<a href="{{ url_for('menu') }}">Back</a>

@@ -1,0 +1,53 @@
+<h2>Queue</h2>
+
+{% if role != 'manager' %}
+<form method="POST" action="{{ url_for('submit_queue') }}">
+    <label>Item:</label>
+    <input name="item" required>
+
+    <label>Quantity:</label>
+    <input name="quantity" type="number" min="1" required>
+
+    <label>Delivery Time:</label>
+    <input type="datetime-local" name="delivery_time">
+
+    <button type="submit">Submit Request</button>
+</form>
+{% endif %}
+
+<hr>
+
+<h3>Current Queue</h3>
+
+<table border="1">
+<tr>
+    <th>#</th>
+    <th>User</th>
+    <th>Item</th>
+    <th>Qty</th>
+    <th>Status</th>
+    {% if role == 'manager' %}<th>Actions</th>{% endif %}
+</tr>
+
+{% for e in entries %}
+<tr {% if loop.index <= 3 %}style="background-color: #ffeb99;"{% endif %}>
+    <td>{{ loop.index }}</td>
+    <td>{{ e.user_name }}</td>
+    <td>{{ e.item_type }}</td>
+    <td>{{ e.quantity }}</td>
+    <td>{{ e.status }}</td>
+
+    {% if role == 'manager' %}
+    <td>
+        {% if e.status == "waiting" %}
+            <a href="{{ url_for('process_entry', entry_id=e.id) }}">Start</a>
+        {% elif e.status == "processing" %}
+            <a href="{{ url_for('complete_entry', entry_id=e.id) }}">Complete</a>
+        {% endif %}
+    </td>
+    {% endif %}
+</tr>
+{% endfor %}
+</table>
+
+<a href="{{ url_for('menu') }}">Return to Menu</a>

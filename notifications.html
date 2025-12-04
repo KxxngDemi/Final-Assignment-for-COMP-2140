@@ -1,0 +1,9 @@
+<h2>Notifications</h2>
+
+<ul>
+{% for n in logs %}
+    <li>{{ n.message }} ({{ n.timestamp }})</li>
+{% endfor %}
+</ul>
+
+<a href="{{ url_for('menu') }}">Back</a>

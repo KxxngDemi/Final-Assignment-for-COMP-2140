@@ -1,0 +1,12 @@
+<h2>Welcome {{ user_name }} ({{ role }})</h2>
+<ul>
+    <li><a href="{{ url_for('queue') }}">Queue</a></li>
+
+    {% if role == 'manager' %}
+    <li><a href="{{ url_for('inventory') }}">Inventory</a></li>
+    <li><a href="{{ url_for('reports') }}">Reports</a></li>
+    {% endif %}
+
+    <li><a href="{{ url_for('notifications') }}">Notifications</a></li>
+    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+</ul>
